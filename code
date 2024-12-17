@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Function to simulate N independent draws of Sn
+def simulate_coin_flips(n, N):
+    return np.random.binomial(n, 0.5, N)
+
+# Parameters
+N = 1000  # Number of independent draws
+n_values = [10, 20, 40, 80]  # Different values of n
+
+# Create a figure with 4 subplots
+fig, axs = plt.subplots(2, 2, figsize=(12, 8))
+
+# Simulate and plot for each n
+for i, n in enumerate(n_values):
+    # Simulate N independent draws of Sn
+    S_n = simulate_coin_flips(n, N)
+    
+    # Plot histogram in the i-th subplot
+    ax = axs[i // 2, i % 2]
+    ax.hist(S_n, bins=np.arange(n+2)-0.5, density=True, alpha=0.7, label='Histogram')
+
+    ax.set_title(f'n = {n}')
+    ax.set_xlabel('Number of Heads')
+    ax.set_ylabel('Probability')
+    ax.legend()
+
+# Adjust layout and show plots
+plt.tight_layout()
+plt.show()
